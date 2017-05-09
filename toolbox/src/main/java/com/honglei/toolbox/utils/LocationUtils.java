@@ -1,4 +1,4 @@
-package com.honglei.toolbox.utils.app;
+package com.honglei.toolbox.utils;
 
 import android.app.PendingIntent;
 import android.app.PendingIntent.CanceledException;

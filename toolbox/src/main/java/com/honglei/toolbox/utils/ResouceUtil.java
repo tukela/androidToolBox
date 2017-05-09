@@ -1,4 +1,4 @@
-package com.honglei.toolbox.utils.io;
+package com.honglei.toolbox.utils;
 
 import android.content.Context;
 import android.content.pm.ApplicationInfo;

@@ -1,4 +1,4 @@
-package com.honglei.toolbox.utils.record;
+package com.honglei.toolbox.utils;
 
 import android.media.MediaRecorder;
 import android.os.Environment;

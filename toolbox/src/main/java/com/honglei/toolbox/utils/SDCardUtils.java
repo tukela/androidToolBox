@@ -1,4 +1,4 @@
-package com.honglei.toolbox.utils.io;
+package com.honglei.toolbox.utils;
 
 import java.io.BufferedReader;
 import java.io.File;

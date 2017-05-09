@@ -9,13 +9,46 @@ import java.util.GregorianCalendar;
 
 
 
-public class DateUtils {
+public class TimeUtil {
 
     private final static long minute = 60 * 1000;// 1分钟
     private final static long hour = 60 * minute;// 1小时
     private final static long day = 24 * hour;// 1天
     private final static long month = 31 * day;// 月
     private final static long year = 12 * month;// 年
+
+    //毫秒转秒
+    public static String long2String(long time) {
+        String timeStr = "00:";
+        //毫秒转秒
+        int sec = (int) time / 1000;
+        int min = sec / 60;    //分钟
+        sec = sec % 60;        //秒
+        if (min < 10) {    //分钟补0
+            if (sec < 10) {    //秒补0
+                timeStr += "0" + min + ":0" + sec;
+            } else {
+                timeStr += "0" + min + ":" + sec;
+            }
+        } else {
+            if (sec < 10) {    //秒补0
+                timeStr += min + ":0" + sec;
+            } else {
+                timeStr += min + ":" + sec;
+            }
+        }
+        return  timeStr;
+    }
+
+    /**
+     * 返回当前时间的格式为 yyyy-MM-dd HH:mm:ss
+     *
+     * @return
+     */
+    public static String getCurrentTime() {
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss");
+        return sdf.format(System.currentTimeMillis());
+    }
 
     /**
      * 日期格式：yyyy-MM-dd HH:mm:ss

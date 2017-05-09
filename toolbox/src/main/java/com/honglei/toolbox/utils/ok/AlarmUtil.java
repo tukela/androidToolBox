@@ -1,4 +1,4 @@
-package com.honglei.toolbox.utils;
+package com.honglei.toolbox.utils.ok;
 
 import android.annotation.TargetApi;
 import android.app.AlarmManager;
@@ -8,9 +8,9 @@ import android.content.Intent;
 import android.os.Build;
 
 /**
- * @author MaTianyu @http://litesuits.com
- * @date 2015-08-22
- * 
+ *开关定时器、
+ * 开关轮询服务
+ *
  *
  */
 public class AlarmUtil {

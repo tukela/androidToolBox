@@ -1,6 +1,8 @@
 package com.honglei.toolbox.utils;
 
 import java.lang.reflect.Constructor;
+import java.lang.reflect.ParameterizedType;
+import java.lang.reflect.Type;
 import java.util.Collection;
 import java.util.Date;
 
@@ -11,7 +13,18 @@ import java.util.Date;
  * @date 2013-6-10下午8:00:46
  */
 public class ClassUtil {
-
+    /**
+     * 获取泛型
+     *
+     */
+    public static <T> Class<T> getGenericClass(Class<?> klass) {
+        Type type = klass.getGenericSuperclass();
+        if (type == null || !(type instanceof ParameterizedType)) return null;
+        ParameterizedType parameterizedType = (ParameterizedType) type;
+        Type[] types = parameterizedType.getActualTypeArguments();
+        if (types == null || types.length == 0) return null;
+        return (Class<T>) types[0];
+    }
 	/**
 	 * 判断类是否是基础数据类型
 	 * 目前支持11种
