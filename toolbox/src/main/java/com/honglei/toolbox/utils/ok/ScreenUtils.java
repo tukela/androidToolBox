@@ -1,4 +1,4 @@
-package com.honglei.toolbox.utils;
+package com.honglei.toolbox.utils.ok;
 
 import android.app.Activity;
 import android.content.Context;
@@ -10,10 +10,46 @@ import android.view.View;
 import android.view.WindowManager;
 
 /**
- * 屏幕 工具类<br>
+ * 屏幕 工具类
+ ***************************************************************
+ * 显示信息
+ * 获得屏幕宽度
+ * 获得屏幕高度
+ * 获得状态栏的高度
+ * 获取当前屏幕截图，包含状态栏
+ * 获取当前屏幕截图，不包含状态栏
+ * 精确获取屏幕尺寸（例如：3.5、4.0、5.0寸屏幕）(貌似不太准)
+ * 一般是7寸以上是平板 ,判断是否是平板（官方用法）
+ * 获取屏幕分辨率
+ * 获取屏幕密度
+ * dp2px
+ * px2dp
+ *
+ *
  *
  */
 public class ScreenUtils {
+
+
+	/**
+	 * 打印 显示信息
+	 */
+	public static DisplayMetrics printDisplayInfo(Context context) {
+		DisplayMetrics dm =  context.getResources().getDisplayMetrics();
+//        if (Log.isPrint) {
+		StringBuilder sb = new StringBuilder();
+		sb.append("_______  显示信息:  ");
+		sb.append("\ndensity         :").append(dm.density);
+		sb.append("\ndensityDpi      :").append(dm.densityDpi);
+		sb.append("\nheightPixels    :").append(dm.heightPixels);
+		sb.append("\nwidthPixels     :").append(dm.widthPixels);
+		sb.append("\nscaledDensity   :").append(dm.scaledDensity);
+		sb.append("\nxdpi            :").append(dm.xdpi);
+		sb.append("\nydpi            :").append(dm.ydpi);
+//            Log.i(TAG, sb.toString());
+//        }
+		return dm;
+	}
 
 	/**
 	 * 获得屏幕宽度

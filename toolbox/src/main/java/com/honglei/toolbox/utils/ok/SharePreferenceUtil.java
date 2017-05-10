@@ -1,4 +1,4 @@
-package com.honglei.toolbox.utils;
+package com.honglei.toolbox.utils.ok;
 
 import java.util.Map;
 import java.util.Set;
@@ -184,8 +184,8 @@ public class SharePreferenceUtil {
 	 * @return Map<String, ?>
 	 */
 	public static Map<String, ?> getAll(Context context) {
-		SharedPreferences sp = context.getSharedPreferences(
-				SharePreferncesName, Context.MODE_PRIVATE);
+		SharedPreferences sp = context
+				.getSharedPreferences(SharePreferncesName, Context.MODE_PRIVATE);
 		return sp.getAll();
 	}
 

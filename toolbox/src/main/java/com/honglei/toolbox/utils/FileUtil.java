@@ -5,12 +5,13 @@ import java.nio.channels.FileChannel;
 import java.text.DecimalFormat;
 
 /**
- * @author MaTianyu
- * @date 2014-08-10
+ * 文件通道拷贝
+ * 换算文件大小单位
+ * 根据路径删除文件
+ * 获取文件扩展名
+ * 读取指定文件
  */
 public class FileUtil {
-
-    private static final String TAG = FileUtil.class.getSimpleName();
 
     public static void fileChannelCopy(File s, File t) {
         FileInputStream fi = null;
@@ -34,6 +35,8 @@ public class FileUtil {
         }
     }
 
+    /*换算文件大小单位*/
+
     public static String formatFileSizeToString(long fileLen) {// 转换文件大小
         DecimalFormat df = new DecimalFormat("#.00");
         String fileSizeString = "";
@@ -50,7 +53,7 @@ public class FileUtil {
     }
 
     /***
-     * 根据路径删除图片
+     * 根据路径删除文件
      */
     public static boolean deleteFile(File file)throws IOException {
         return file != null && file.delete();
@@ -73,7 +76,7 @@ public class FileUtil {
 
 
     /**
-     * 读取指定文件的输出
+     * 读取指定文件
      */
     public static String getFileOutputString(String path) {
         try {

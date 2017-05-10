@@ -9,7 +9,7 @@ import java.security.NoSuchAlgorithmException;
  * MS5
  */
 public class MD5Util {
-    private static final String TAG                  = MD5Util.class.getSimpleName();
+
     private static final int    STREAM_BUFFER_LENGTH = 1024;
 
     public static MessageDigest getDigest(final String algorithm) throws NoSuchAlgorithmException {
