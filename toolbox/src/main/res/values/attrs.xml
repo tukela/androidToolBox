@@ -26,5 +26,8 @@
         <attr name="ios" format="boolean"/>
         <attr name="leftSwipe" format="boolean"/>
     </declare-styleable>
+    <declare-styleable name="IconButton">
+        <attr name="iconPadding" format="dimension"/>
+    </declare-styleable>
 
 </resources>

@@ -1,5 +1,6 @@
 package com.honglei.toolbox.utils.ok;
 
+import android.app.Activity;
 import android.app.ActivityManager;
 import android.content.ComponentName;
 import android.content.Context;
@@ -10,6 +11,7 @@ import android.content.pm.PackageManager;
 import android.content.pm.PackageManager.NameNotFoundException;
 import android.content.pm.ResolveInfo;
 import android.os.Environment;
+import android.view.inputmethod.InputMethodManager;
 import com.honglei.toolbox.utils.ListUtils;
 import com.honglei.toolbox.utils.ObjectUtils;
 
@@ -385,6 +387,15 @@ public class AppUtil {
             return 0l;
         }
 
+    }
+
+    public static void hideIME(Activity window) {
+        try {
+            InputMethodManager imm = (InputMethodManager) window.getSystemService(Context.INPUT_METHOD_SERVICE);
+            imm.hideSoftInputFromWindow(window.getCurrentFocus().getWindowToken(), 0);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
 }
