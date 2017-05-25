@@ -7,10 +7,16 @@ import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.PointF;
 import android.util.AttributeSet;
-import android.view.*;
+import android.view.MotionEvent;
+import android.view.VelocityTracker;
+import android.view.View;
+import android.view.ViewConfiguration;
+import android.view.ViewGroup;
 import android.view.animation.AccelerateInterpolator;
 import android.view.animation.OvershootInterpolator;
-import com.honglei.toolbox.R;
+
+import com.colin.aiyi.R;
+
 
 /**
  * 【Item侧滑删除菜单】
@@ -279,8 +285,8 @@ public class SwipeMenuLayout extends ViewGroup {
     protected void onLayout(boolean changed, int l, int t, int r, int b) {
         //LogUtils.e(TAG, "onLayout() called with: " + "changed = [" + changed + "], l = [" + l + "], t = [" + t + "], r = [" + r + "], b = [" + b + "]");
         int childCount = getChildCount();
-        int left = 0 + getPaddingLeft();
-        int right = 0 + getPaddingLeft();
+        int left = getPaddingLeft();
+        int right = getPaddingLeft();
         for (int i = 0; i < childCount; i++) {
             View childView = getChildAt(i);
             if (childView.getVisibility() != GONE) {
@@ -306,6 +312,7 @@ public class SwipeMenuLayout extends ViewGroup {
     public boolean dispatchTouchEvent(MotionEvent ev) {
         //LogUtils.d(TAG, "dispatchTouchEvent() called with: " + "ev = [" + ev + "]");
         if (isSwipeEnable) {
+//            requestDisallowInterceptTouchEvent(true);
             acquireVelocityTracker(ev);
             final VelocityTracker verTracker = mVelocityTracker;
             switch (ev.getAction()) {
@@ -340,10 +347,16 @@ public class SwipeMenuLayout extends ViewGroup {
                         break;
                     }
                     float gap = mLastP.x - ev.getRawX();
+                    float gapY=Math.abs(mLastP.y-ev.getRawY());
                     //为了在水平滑动中禁止父类ListView等再竖直滑动
-                    if (Math.abs(gap) > 10 || Math.abs(getScrollX()) > 10) {//2016 09 29 修改此处，使屏蔽父布局滑动更加灵敏，
+//                    if (Math.abs(gap) >  6|| Math.abs(getScrollX()) > 6) {//2016 09 29 修改此处，使屏蔽父布局滑动更加灵敏，
+//                        getParent().requestDisallowInterceptTouchEvent(true);
+//                    }
+                    if (gap>5&gap>gapY)
+                    {
                         getParent().requestDisallowInterceptTouchEvent(true);
                     }
+
                     //2016 10 22 add , 仿QQ，侧滑菜单展开时，点击内容区域，关闭侧滑菜单。begin
                     if (Math.abs(gap) > mScaleTouchSlop) {
                         isUnMoved = false;
