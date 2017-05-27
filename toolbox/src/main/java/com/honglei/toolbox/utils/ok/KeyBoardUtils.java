@@ -1,17 +1,13 @@
 package com.honglei.toolbox.utils.ok;
 
+import android.app.Activity;
 import android.app.Instrumentation;
+import android.content.Context;
+import android.view.View;
+import android.view.inputmethod.InputMethodManager;
+import android.widget.EditText;
 
-/**
- * Created by hl on 2017/5/25.
- *
- *
- *
- *
- */
-public class KeyboardUtil {
-
-   /* 电话键键名 描述 键值
+ /* 电话键键名 描述 键值
 
    public static int KEYCODE_CALL=5; //拨号键5
    public static int KEYCODE_ENDCALL = 6;//挂机键6
@@ -276,24 +272,110 @@ public class KeyboardUtil {
     KEYCODE_UNKNOWN 未知按键
     */
 
-    /********
+/*******
+ * <ul>
+ * <li>{@link #sendKeyEvent(int keyCode) ｝</li>模拟按键事件
+ * <li>{@link #toggleSoftInput(Context context)  ｝</li>
+ * <li>{@link #showSoftInput(View view)  ｝</li>
+ * <li>{@link #showSoftInput(Activity activity)  ｝</li>
+ * <li>{@link #hideSoftInput(View view)  ｝</li>
+ * <li>{@link #hideSoftInput(Activity activity)  ｝</li>
+ * <li>{@link #isActive(Context context)  ｝</li>
+ * <li>{@link #openKeybord(EditText mEditText, Context mContext)   ｝</li>
+ * <li>{@link #closeKeybord(EditText mEditText, Context mContext)  ｝</li>
+ * <li>{@link #  ｝</li>
+ * <li>{@link #  ｝</li>
+ * <li>{@link #  ｝</li>
+ * <li>{@link #  ｝</li>
+ * <li>{@link #  ｝</li>
+ * <li>{@link #  ｝</li>
+ * <li>{@link #  ｝</li>
+ * <li>{@link #  ｝</li>
+ * <li>{@link #  ｝</li>
+ * <li>{@link #  ｝</li>
+ * </ul>
+ ****/
+public class KeyBoardUtils {
+
+
+    /****
      * 模拟按键事件
-     * @param KeyCode
+     * @param keyCode
      */
-    //KeyEvent.KEYCODE_MENU
-    //KeyEvent.KEYCODE_BACK
-    public static void sendKeyEvent(final int KeyCode) {
+    public static void sendKeyEvent(final int keyCode){
+        final int code=keyCode;
         new Thread() {     //不可在主线程中调用
             public void run() {
                 try {
                     Instrumentation inst = new Instrumentation();
-                    inst.sendKeyDownUpSync(KeyCode);
+                    inst.sendKeyDownUpSync(code);
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
             }
-
         }.start();
     }
 
+    public static void toggleSoftInput(Context context) {
+        InputMethodManager imm = (InputMethodManager) context.getSystemService(Context.INPUT_METHOD_SERVICE);
+        imm.toggleSoftInput(0, InputMethodManager.HIDE_NOT_ALWAYS);
+    }
+
+    public static boolean showSoftInput(View view) {
+        InputMethodManager imm = (InputMethodManager) view.getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
+        return imm.showSoftInput(view, InputMethodManager.SHOW_FORCED);
+    }
+
+    public static boolean showSoftInput(Activity activity) {
+        View view = activity.getCurrentFocus();
+        if (view != null) {
+            InputMethodManager imm = (InputMethodManager) view.getContext().getSystemService(
+                    Context.INPUT_METHOD_SERVICE);
+            return imm.showSoftInput(view, InputMethodManager.SHOW_FORCED);
+        }
+        return false;
+    }
+
+    public static boolean hideSoftInput(View view) {
+        InputMethodManager imm = (InputMethodManager) view.getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
+        return imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+    }
+
+    public static boolean hideSoftInput(Activity activity) {
+        if (activity.getCurrentFocus() != null) {
+            InputMethodManager imm = (InputMethodManager) activity.getSystemService(Context.INPUT_METHOD_SERVICE);
+            return imm.hideSoftInputFromWindow(activity.getCurrentFocus().getWindowToken(), 0);
+        }
+        return false;
+    }
+
+    public static boolean isActive(Context context) {
+        InputMethodManager imm = (InputMethodManager) context.getSystemService(Context.INPUT_METHOD_SERVICE);
+        return imm.isActive();
+    }
+    /**
+     * 打开软键盘
+     *
+     * @param mEditText 输入框(好像关系不大)
+     * @param mContext  上下文
+     */
+    public static void openKeybord(EditText mEditText, Context mContext) {
+        InputMethodManager imm = (InputMethodManager) mContext
+                .getSystemService(Context.INPUT_METHOD_SERVICE);
+        imm.showSoftInput(mEditText, InputMethodManager.RESULT_SHOWN);
+        imm.toggleSoftInput(InputMethodManager.SHOW_FORCED,
+                InputMethodManager.HIDE_IMPLICIT_ONLY);
+    }
+
+    /**
+     * 关闭软键盘
+     *
+     * @param mEditText 输入框(好像关系不大)
+     * @param mContext  上下文
+     */
+    public static void closeKeybord(EditText mEditText, Context mContext) {
+        InputMethodManager imm = (InputMethodManager) mContext
+                .getSystemService(Context.INPUT_METHOD_SERVICE);
+        imm.hideSoftInputFromWindow(mEditText.getWindowToken(), 0);
+    }
 }

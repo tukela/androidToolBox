@@ -7,10 +7,18 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 
-/**
+/*******
  * SharedPreferences 工具类
- * 
- */
+ * <ul>
+ * <li>{@link #setValue(Context context, String key, Object value)  ｝</li>
+ * <li>{@link #remove(Context context, String key)  ｝</li>除某个key值对应的值
+ * <li>{@link #clear(Context context)   ｝</li>清除所有数据
+ * <li>{@link #contains(Context context, String key) ｝</li>查询某个key是否已经存在
+ * <li>{@link #getAll(Context context)  ｝</li>返回所有的键值对
+ * <li>{@link #getXX(Context context, String key, long defaultValue)  ｝</li>得到XX类型的值
+ * <li>{@link #  ｝</li>
+ * </ul>
+ ****/
 public class SharePreferenceUtil {
 
 	private static SharedPreferences sp;
@@ -20,20 +28,15 @@ public class SharePreferenceUtil {
 
 	/**
 	 * 保存数据的方法，我们需要拿到保存数据的具体类型，然后根据类型调用不同的保存方法
-	 * 
 	 * @param context
-	 * @param key
-	 *            键值对的key
-	 * @param value
-	 *            键值对的值
+	 * @param key 键值对的key
+	 * @param value 键值对的值
 	 * @return 是否保存成功
 	 */
 	public static boolean setValue(Context context, String key, Object value) {
 		if (sp == null) {
-			sp = context.getSharedPreferences(SharePreferncesName,
-					Context.MODE_PRIVATE);
+			sp = context.getSharedPreferences(SharePreferncesName,Context.MODE_PRIVATE);
 		}
-
 		Editor edit = sp.edit();
 		if (value instanceof String) {
 			return edit.putString(key, (String) value).commit();
@@ -150,7 +153,6 @@ public class SharePreferenceUtil {
 
 	/**
 	 * 清除所有数据
-	 * 
 	 * @param context
 	 * @return 是否成功
 	 */
@@ -161,10 +163,8 @@ public class SharePreferenceUtil {
 		editor.clear();
 		return editor.commit();
 	}
-
 	/**
 	 * 查询某个key是否已经存在
-	 * 
 	 * @param context
 	 * @param key
 	 * @return 是否存在
@@ -179,7 +179,6 @@ public class SharePreferenceUtil {
 
 	/**
 	 * 返回所有的键值对
-	 * 
 	 * @param context
 	 * @return Map<String, ?>
 	 */

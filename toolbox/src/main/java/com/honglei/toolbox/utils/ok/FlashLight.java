@@ -5,13 +5,12 @@ import android.os.Build;
 import android.os.Handler;
 
 /**
- * <!-- 手电筒 -->
+ *
  * Call requires API level 5
  * <uses-permission android:name="android.permission.FLASHLIGHT"/>
  * <uses-permission android:name="android.permission.CAMERA"/>
- *
- * @author MaTianyu
- * @date 2014-11-04
+ * {@link #turnOnFlashLight()  ｝ 打开闪关灯超过3分钟自动关闭，防止损伤硬件
+ * @link #turnOffFlashLight()   ｝
  */
 public class FlashLight {
 

@@ -7,7 +7,6 @@ import com.honglei.toolbox.dao.HttpCacheDao;
 import com.honglei.toolbox.entity.HttpResponse;
 import com.honglei.toolbox.utils.SqliteUtils;
 import com.honglei.toolbox.utils.StringUtils;
-import com.honglei.toolbox.utils.TimeUtils;
 
 import java.util.HashMap;
 import java.util.Map;

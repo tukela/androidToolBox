@@ -19,16 +19,10 @@ package com.honglei.toolbox.utils.secarity;
 import java.io.UnsupportedEncodingException;
 
 /**
- * Utilities for encoding and decoding the Base64 representation of
- * binary data.  See RFCs <a
- * href="http://www.ietf.org/rfc/rfc2045.txt">2045</a> and <a
- * href="http://www.ietf.org/rfc/rfc3548.txt">3548</a>.
+ *
  */
 public class Base64 {
-    /**
-     * Default values for encoder/decoder flags.
-     */
-    public static final int DEFAULT = 0;
+    public static final int DEFAULT = 0;//编码/解码标志的缺省值。
 
     /**
      * Encoder flag bit to omit the padding '=' characters at the end

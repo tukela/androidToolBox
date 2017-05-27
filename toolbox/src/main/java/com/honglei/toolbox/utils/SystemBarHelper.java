@@ -1,4 +1,4 @@
-package com.honglei.toolbox.utils.test;
+package com.honglei.toolbox.utils;
 
 import android.annotation.TargetApi;
 import android.app.Activity;

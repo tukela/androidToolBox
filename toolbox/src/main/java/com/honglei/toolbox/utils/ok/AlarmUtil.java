@@ -7,12 +7,25 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
 
-/**
- *开关定时器、
- * 开关轮询服务
- *
- *
- */
+/*******
+ * <ul>
+ * <li>{@link #startAlarmIntent(Context context, int triggerAtMillis, PendingIntent pendingIntent)｝</li>开启定时器
+ * <li>{@link #stopAlarmIntent(Context context, PendingIntent pendingIntent)｝</li>关闭定时器
+ * <li>{@link #startAlarmService(Context context, int triggerAtMillis, Class<?> cls, String action) ｝</li>开启轮询服务
+ * <li>{@link #stopAlarmService(Context context, Class<?> cls, String action) ｝</li>停止启轮询服务
+ * <li>{@link #  ｝</li>
+ * <li>{@link #  ｝</li>
+ * <li>{@link #  ｝</li>
+ * <li>{@link #  ｝</li>
+ * <li>{@link #  ｝</li>
+ * <li>{@link #  ｝</li>
+ * <li>{@link #  ｝</li>
+ * <li>{@link #  ｝</li>
+ * <li>{@link #  ｝</li>
+ * <li>{@link #  ｝</li>
+ * </ul>
+ ****/
+
 public class AlarmUtil {
     /**
      * 开启定时器

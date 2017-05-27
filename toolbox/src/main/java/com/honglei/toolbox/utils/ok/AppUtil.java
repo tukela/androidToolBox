@@ -18,7 +18,7 @@ import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import com.honglei.toolbox.utils.ListUtils;
 import com.honglei.toolbox.utils.ObjectUtils;
-import com.honglei.toolbox.utils.test.ToastUtil;
+import com.honglei.toolbox.utils.ToastUtil;
 
 import java.io.File;
 import java.text.DecimalFormat;
@@ -26,27 +26,65 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+/*******
+ * <ul>
+ * <li>{@link #  ｝</li>
+ * <li>{@link #  ｝</li>
+ * <li>{@link #  ｝</li>
+ * <li>{@link #  ｝</li>
+ * <li>{@link #  ｝</li>
+ * <li>{@link #  ｝</li>
+ * <li>{@link #  ｝</li>
+ * <li>{@link #  ｝</li>
+ * <li>{@link #  ｝</li>
+ * <li>{@link #  ｝</li>
+ * <li>{@link #  ｝</li>
+ * <li>{@link #  ｝</li>
+ * <li>{@link #  ｝</li>
+ * <li>{@link #  ｝</li>
+ * <li>{@link #  ｝</li>
+ * <li>{@link #  ｝</li>
+ * <li>{@link #  ｝</li>
+ * <li>{@link #  ｝</li>
+ * <li>{@link #  ｝</li>
+ * </ul>
+ ****/
+
+
 
 /**
- * APP  应用工具类
- * 获取应用信息
- * 获得APP的名称
- * 应用进程名称是否为XX
- * 运行在后台？
- * 运行在前台？
- * 启动默认activity
- * 获取所以activity
- * 检查有没有应用程序来接受处理你发出的intent
- * 获取所有app的安装路径
- * 获取所有可启动app的包名
- * 清除本应用所有数据库，本应用数据库，sp，内外部缓存
- * 清除指定目录下文件
- * 获得文件大小和文件夹下所有文件的大小
+ * APP工具
+ * * <ul>
+ * <li>{@link #getPackageInfo(Context context)}</li> 获取应用信息
+ * <li>{@link #getAppName(Context context)  ｝</li>获得APP的名称
+ * <li>{@link #isNamedProcess(Context context, String processName)  ｝</li>应用进程名称是否为XX
+ * <li>{@link #isApplicationInBackground  ｝</li>运行在后台？
+ * <li>{@link #isRunningForeground  ｝</li>运行在前台？
+ * <li>{@link #startApkActivity(Context activity, String packageName)  ｝</li>启动默认activity
+ * <li>{@link #getActivities(Context activity)  ｝</li>获取所有activity
+ * <li>{@link #isIntentAvailable(Context context, String action)  ｝</li>检查有没有应用程序来接受处理你发出的intent
+ * <li>{@link #getAllInstelAppUrl( Context context)  ｝</li>获取所有app的安装路径
+ * <li>{@link #getAllCanStartApp(Context context) ｝</li>获取所有可启动app的包名
+ * <li>{@link #cleanAppCache(Context context)  ｝</li>清除应用缓存
+ * <li>{@link #cleanApplicationData(Context context, String... filepath)   ｝</li>清除本应用所有的数据
+ * <li>{@link #getInternalCacheSize(Context context)  ｝</li>
+ * <li>{@link #getExternalCacheSize(Context context)  ｝</li>
+ * <li>{@link #deleteFilesByDirectory(File directory)  ｝</li>清除指定目录下文件
+ * <li>{@link #getFilesSize(File mfile)  ｝</li>获得文件大小和文件夹下所有文件的大小
+
+
+ * <li>{@link #hideIME(Activity window)  ｝</li>
+ * <li>{@link #isAppAlive(Context context)  ｝</li>
+ * <li>{@link #isAppOnForeground(Context context) ｝</li>程序是否在前台运行
+ * <li>{@link #getVersion(Context context)  ｝</li>
+ * <li>{@link #hideSoftInput(Context context, View view)  ｝</li>隐藏软键盘  view 必须是EditText或其子类
+ * <li>{@link #showSoftInput(Context context, View view)  ｝</li>示软键盘
+ * <li>{@link #openUrl(Context context, String url)  ｝</li>使用浏览器打开指定url地址
+ * <li>{@link #callPhone(Context context, String tel) ｝</li> callPhone(Context context, String tel)
  *
- *
- *
- *
- *
+ * <li>{@link #isSDCardAvailable()  ｝</li>
+
+ * </ul>
  */
 public class AppUtil {
 
@@ -146,19 +184,13 @@ public class AppUtil {
         }
         return false;
     }
-
-
-
-
-
     /**
      * 启动APK的默认Activity
      *
      * @param activity
      * @param packageName
      */
-    public static void startApkActivity(final Context activity,
-                                        String packageName) throws Exception {
+    public static void startApkActivity(Context activity, String packageName) throws Exception {
         PackageManager pm = activity.getPackageManager();
         PackageInfo pi;
 
@@ -173,7 +205,6 @@ public class AppUtil {
             intent.setComponent(new ComponentName(packageName, className));
             activity.startActivity(intent);
         }
-
     }
 
     /**
@@ -214,21 +245,15 @@ public class AppUtil {
      * @param context
      * @return ArrayList<HashMap<String, String>> package:包名,url:地址
      */
-    public static ArrayList<HashMap<String, String>> getAllInstelAppUrl(
-            Context context) {
-
+    public static ArrayList<HashMap<String, String>> getAllInstelAppUrl( Context context) {
         ArrayList<HashMap<String, String>> appInfos = new ArrayList<HashMap<String, String>>();
-
         PackageManager pm = context.getPackageManager();
-
         for (ApplicationInfo app : pm.getInstalledApplications(0)) {
-
             HashMap<String, String> appInfo = new HashMap<String, String>();
             appInfo.put("package", app.packageName);
             appInfo.put("url", app.sourceDir);
             appInfos.add(appInfo);
         }
-
         return appInfos;
     }
 
@@ -239,104 +264,33 @@ public class AppUtil {
      * @return ArrayList<String> 包名
      */
     public static ArrayList<String> getAllCanStartApp(Context context) {
-
         ArrayList<String> appInfos = new ArrayList<String>();
-
         PackageManager pm = context.getPackageManager();
-
         Intent intent = new Intent(Intent.ACTION_MAIN);
         intent.addCategory(Intent.CATEGORY_LAUNCHER);
-
         for (ResolveInfo app : pm.queryIntentActivities(intent, 0)) {
             appInfos.add(app.activityInfo.packageName);
         }
-
         return appInfos;
     }
-    /**
-     * 清除本应用内部缓存(/data/data/com.xxx.xxx/cache)
-     *
-     * @param context
-     */
-    public static void cleanInternalCache(Context context) {
-        deleteFilesByDirectory(context.getCacheDir());
-    }
 
-
-    /**
-     * 获取内部缓存大小
+    /********
+     * 清除应用缓存
      * @param context
      * @return
      */
-    public static long getInternalCacheSize(Context context){
-        return getFilesSize(context.getCacheDir());
+    public static long cleanAppCache(Context context)
+    {
+        long size=getInternalCacheSize(context)+getExternalCacheSize(context);
+        cleanInternalCache(context);
+        cleanExternalCache(context);
+        cleanFiles(context);
+        long size2=getInternalCacheSize(context)+getExternalCacheSize(context);
+        return size-size2>0?size-size2:0;
     }
-
-
-    /**
-     * 外部缓存大小
-     * @param context
-     * @return
-     */
-    public static long getExternalCacheSize(Context context){
-        return getFilesSize(context.getExternalCacheDir());
-    }
-
-    /**
-     * 清除本应用所有数据库(/data/data/com.xxx.xxx/databases)
-     *
-     * @param context
-     */
-    public static void cleanDatabases(Context context) {
-        deleteFilesByDirectory(new File("/data/data/"
-                + context.getPackageName() + "/databases"));
-    }
-
-    /**
-     * 清除本应用SharedPreference(/data/data/com.xxx.xxx/shared_prefs)
-     *
-     * @param context
-     */
-    public static void cleanSharedPreference(Context context) {
-        deleteFilesByDirectory(new File("/data/data/"
-                + context.getPackageName() + "/shared_prefs"));
-    }
-
-    /**
-     * 按名字清除本应用数据库
-     *
-     * @param context
-     * @param dbName
-     */
-    public static void cleanDatabaseByName(Context context, String dbName) {
-        context.deleteDatabase(dbName);
-    }
-
-    /**
-     * 清除/data/data/com.xxx.xxx/files下的内容
-     *
-     * @param context
-     */
-    public static void cleanFiles(Context context) {
-        deleteFilesByDirectory(context.getFilesDir());
-    }
-
-    /**
-     * 清除外部cache下的内容(/mnt/sdcard/android/data/com.xxx.xxx/cache)
-     *
-     * @param context
-     */
-    public static void cleanExternalCache(Context context) {
-        if (Environment.getExternalStorageState().equals(
-                Environment.MEDIA_MOUNTED)) {
-            deleteFilesByDirectory(context.getExternalCacheDir());
-        }
-    }
-
 
     /**
      * 清除本应用所有的数据
-     *
      * @param context
      * @param filepath
      */
@@ -351,6 +305,73 @@ public class AppUtil {
         }
     }
     /**
+     * 获取内部缓存大小
+     * @param context
+     * @return
+     */
+    public static long getInternalCacheSize(Context context){
+        return getFilesSize(context.getCacheDir());
+    }
+    /**
+     * 外部缓存大小
+     * @param context
+     * @return
+     */
+    public static long getExternalCacheSize(Context context){
+        return getFilesSize(context.getExternalCacheDir());
+    }
+    /**
+     * 清除/data/data/com.xxx.xxx/files下的内容
+     * @param context
+     */
+    public static void cleanFiles(Context context) {
+        deleteFilesByDirectory(context.getFilesDir());
+    }
+    /**
+     * 清除本应用内部缓存(/data/data/com.xxx.xxx/cache)
+     * @param context
+     */
+    public static void cleanInternalCache(Context context) {
+        deleteFilesByDirectory(context.getCacheDir());
+    }
+
+    /**
+     * 清除外部cache下的内容(/mnt/sdcard/android/data/com.xxx.xxx/cache)
+     * @param context
+     */
+    public static void cleanExternalCache(Context context) {
+        if (Environment.getExternalStorageState().equals(
+                Environment.MEDIA_MOUNTED)) {
+            deleteFilesByDirectory(context.getExternalCacheDir());
+        }
+    }
+    /**
+     * 清除本应用SharedPreference(/data/data/com.xxx.xxx/shared_prefs)
+     * @param context
+     */
+    public static void cleanSharedPreference(Context context) {
+        deleteFilesByDirectory(new File("/data/data/"
+                + context.getPackageName() + "/shared_prefs"));
+    }
+    /**
+     * 清除本应用所有数据库(/data/data/com.xxx.xxx/databases)
+     * @param context
+     */
+    public static void cleanDatabases(Context context) {
+        deleteFilesByDirectory(new File("/data/data/"+ context.getPackageName() + "/databases"));
+    }
+
+    /**
+     * 清楚XX数据库
+     * @param context
+     * @param dbName
+     */
+    public static void cleanDatabaseByName(Context context, String dbName) {
+        context.deleteDatabase(dbName);
+    }
+
+
+    /**
      * 清除自定义路径下的文件，使用需小心，请不要误删。而且只支持目录下的文件删除
      *
      * @param filePath
@@ -361,7 +382,6 @@ public class AppUtil {
 
     /**
      * 删除方法 这里只会删除某个文件夹下的文件，如果传入的directory是个文件，将不做处理
-     *
      * @param directory
      */
     private static void deleteFilesByDirectory(File directory) {
@@ -372,10 +392,8 @@ public class AppUtil {
         }
     }
 
-
     /**
      * 获得文件大小和文件夹下所有文件的大小
-     *
      * @param mfile
      */
     private static long getFilesSize(File mfile) {
@@ -392,7 +410,6 @@ public class AppUtil {
         } else {
             return 0l;
         }
-
     }
 
     public static void hideIME(Activity window) {
@@ -407,12 +424,12 @@ public class AppUtil {
     /**
      * 判断app是否存活
      * @param context
-     * @param packageName
      * @return
      */
-    public static boolean isAppAlive(Context context, String packageName){
+    public static boolean isAppAlive(Context context){
         ActivityManager activityManager =
                 (ActivityManager)context.getSystemService(Context.ACTIVITY_SERVICE);
+        String packageName = context.getApplicationContext().getPackageName();
         List<ActivityManager.RunningAppProcessInfo> processInfos
                 = activityManager.getRunningAppProcesses();
         for(int i = 0; i < processInfos.size(); i++){
@@ -422,23 +439,16 @@ public class AppUtil {
                 return true;
             }
         }
-        Log.i("NotificationLaunch",
-                String.format("the %s is not running, isAppAlive return false", packageName));
         return false;
     }
 
     /**
      * 程序是否在前台运行
-     *
      * @return
      */
     public static boolean isAppOnForeground(Context context) {
-        // Returns a list of application processes that are running on the
-        // device
-
         ActivityManager activityManager = (ActivityManager) context.getApplicationContext().getSystemService(Context.ACTIVITY_SERVICE);
         String packageName = context.getApplicationContext().getPackageName();
-
         List<ActivityManager.RunningAppProcessInfo> appProcesses = activityManager
                 .getRunningAppProcesses();
         if (appProcesses == null)
@@ -455,17 +465,6 @@ public class AppUtil {
     }
 
     /**
-     * 获取应用程序的包名
-     *
-     */
-    private static final DecimalFormat DF = new DecimalFormat("0.00");
-    public static String getDownloadPerSize(long finished, long total) {
-        //return DF.format((float) finished / (1024 * 1024)) + "M/" + DF.format((float) total / (1024 * 1024)) + "M";
-        return DF.format((float) finished / (1024 * 1024)) + "M";
-    }
-
-
-    /**
      * 获取版本号
      * @return 当前应用的版本号
      */
@@ -475,9 +474,6 @@ public class AppUtil {
         try {
             //获取包的详细信息
             PackageInfo info = pm.getPackageInfo(context.getPackageName(), 0);
-            //获取版本号和版本名称
-//            System.out.println("版本号："+info.versionCode);
-//            System.out.println("版本名称："+info.versionName);
             return info.versionCode + "";
         } catch (PackageManager.NameNotFoundException e) {
             e.printStackTrace();
@@ -542,7 +538,13 @@ public class AppUtil {
         intent.setData(data);
         context.startActivity(intent);
     }
-
+    /**
+     * SD卡判断
+     * @return
+     */
+    public static boolean isSDCardAvailable() {
+        return Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED);
+    }
 
 
 }

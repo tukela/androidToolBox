@@ -13,7 +13,7 @@ import java.util.List;
  * @author MaTianyu
  * @date 2014-12-10
  */
-public class SahreUtil {
+public class ShareUtil {
 
     /**
      * 调用系统分享

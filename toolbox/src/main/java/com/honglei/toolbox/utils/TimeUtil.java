@@ -16,7 +16,60 @@ public class TimeUtil {
     private final static long day = 24 * hour;// 1天
     private final static long month = 31 * day;// 月
     private final static long year = 12 * month;// 年
+    public static final SimpleDateFormat DEFAULT_DATE_FORMAT = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+    public static final SimpleDateFormat DATE_FORMAT_DATE    = new SimpleDateFormat("yyyy-MM-dd");
 
+    private TimeUtils() {
+        throw new AssertionError();
+    }
+
+    /**
+     * long time to string
+     *
+     * @param timeInMillis
+     * @param dateFormat
+     * @return
+     */
+    public static String getTime(long timeInMillis, SimpleDateFormat dateFormat) {
+        return dateFormat.format(new Date(timeInMillis));
+    }
+
+    /**
+     * long time to string, format is {@link #DEFAULT_DATE_FORMAT}
+     *
+     * @param timeInMillis
+     * @return
+     */
+    public static String getTime(long timeInMillis) {
+        return getTime(timeInMillis, DEFAULT_DATE_FORMAT);
+    }
+
+    /**
+     * get current time in milliseconds
+     *
+     * @return
+     */
+    public static long getCurrentTimeInLong() {
+        return System.currentTimeMillis();
+    }
+
+    /**
+     * get current time in milliseconds, format is {@link #DEFAULT_DATE_FORMAT}
+     *
+     * @return
+     */
+    public static String getCurrentTimeInString() {
+        return getTime(getCurrentTimeInLong());
+    }
+
+    /**
+     * get current time in milliseconds
+     *
+     * @return
+     */
+    public static String getCurrentTimeInString(SimpleDateFormat dateFormat) {
+        return getTime(getCurrentTimeInLong(), dateFormat);
+    }
     //毫秒转秒
     public static String long2String(long time) {
         String timeStr = "00:";
@@ -388,6 +441,29 @@ public class TimeUtil {
         return month + "月" + day + "日" + "(" + weekStr + ")";
     }
 
+
+    /******
+     * 计时器
+     * @param time  计时总长
+     * @param ctime  间隔
+     * @param event  回调
+     */
+    public static void timeDown(final int time, int ctime, final TimeDownEvent event){
+        final int dd=ctime;
+        CountDownTimer cdt = new CountDownTimer(time, ctime) {
+            int nctime=0;
+            @Override
+            public void onTick(long millisUntilFinished) {
+                nctime+=dd;
+                event.timeDown(nctime);
+            }
+            @Override
+            public void onFinish() {
+                event.timeDown(-1);
+            }
+        };
+        cdt.start();
+    }
     /**
      * 获取年龄值
      *

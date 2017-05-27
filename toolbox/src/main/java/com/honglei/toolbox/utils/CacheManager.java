@@ -8,6 +8,7 @@ import com.honglei.toolbox.service.impl.ImageSDCardCache;
 
 /**
  * CacheManager
+ *
  * 
  *  2014-2-11
  */

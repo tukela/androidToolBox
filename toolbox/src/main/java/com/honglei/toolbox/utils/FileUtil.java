@@ -1,5 +1,6 @@
 package com.honglei.toolbox.utils;
 
+import android.content.Context;
 import android.os.Environment;
 
 import java.io.*;
@@ -514,6 +515,181 @@ public class FileUtil {
 //            }
 //        }
 //    }
+
+    /**
+     * 文本的写入操作
+     *
+     * @param filePath
+     *            文件路径。一定要加上文件名字 <br>
+     *            例如：../a/a.txt
+     * @param content
+     *            写入内容
+     * @param append
+     *            是否追加
+     */
+    public static void write(String filePath, String content, boolean append) {
+        BufferedWriter bufw = null;
+        try {
+            bufw = new BufferedWriter(new OutputStreamWriter(
+                    new FileOutputStream(filePath, append)));
+            bufw.write(content);
+
+        } catch (Exception e1) {
+            e1.printStackTrace();
+        } finally {
+            if (bufw != null) {
+                try {
+                    bufw.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
+
+    /**
+     * 文本的读取操作
+     *
+     * @param path
+     *            文件路径,一定要加上文件名字<br>
+     *            例如：../a/a.txt
+     * @return
+     */
+    public static String read(String path) {
+        BufferedReader bufr = null;
+        try {
+            bufr = new BufferedReader(new InputStreamReader(
+                    new FileInputStream(path)));
+            StringBuffer sb = new StringBuffer();
+            String str = null;
+            while ((str = bufr.readLine()) != null) {
+                sb.append(str);
+            }
+            return sb.toString();
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (bufr != null) {
+                try {
+                    bufr.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+        return null;
+    }
+
+    /**
+     * 文本的读取操作
+     *
+     * @param is 输入流
+     * @return
+     */
+    public static String read(InputStream is) {
+        BufferedReader bufr = null;
+        try {
+            bufr = new BufferedReader(new InputStreamReader(is));
+            StringBuffer sb = new StringBuffer();
+            String str = null;
+            while ((str = bufr.readLine()) != null) {
+                sb.append(str);
+            }
+            return sb.toString();
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (bufr != null) {
+                try {
+                    bufr.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+        return null;
+    }
+
+
+    /**
+     * @param context 上下文
+     * @param fileName 文件名
+     * @return 字节数组
+     */
+    public static byte[] readBytes(Context context, String fileName) {
+        FileInputStream fin = null;
+        byte[] buffer = null;
+        try {
+            fin = context.openFileInput(fileName);
+            int length = fin.available();
+            buffer = new byte[length];
+            fin.read(buffer);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (fin != null) {
+                    fin.close();
+                    fin = null;
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        return buffer;
+    }
+
+    /**
+     * 快速读取程序应用包下的文件内容
+     *
+     * @param context
+     *            上下文
+     * @param filename
+     *            文件名称
+     * @return 文件内容
+     * @throws IOException
+     */
+    public static String read(Context context, String filename)
+            throws IOException {
+        FileInputStream inStream = context.openFileInput(filename);
+        ByteArrayOutputStream outStream = new ByteArrayOutputStream();
+        byte[] buffer = new byte[1024];
+        int len = 0;
+        while ((len = inStream.read(buffer)) != -1) {
+            outStream.write(buffer, 0, len);
+        }
+        byte[] data = outStream.toByteArray();
+        return new String(data);
+    }
+
+    /**
+     * 获取文件的大小
+     *
+     * @param fileS
+     * @return
+     */
+    public static String FormetFileSize(long fileS) {//转换文件大小
+        DecimalFormat df = new DecimalFormat("#.00");
+        String fileSizeString = "0K";
+        if (fileS < 1024) {
+            fileSizeString = df.format((double) fileS) + "B";
+        } else if (fileS < 1048576) {
+            fileSizeString = df.format((double) fileS / 1024) + "K";
+        } else if (fileS < 1073741824) {
+            fileSizeString = df.format((double) fileS / 1048576) + "M";
+        } else {
+            fileSizeString = df.format((double) fileS / 1073741824) + "G";
+        }
+        return fileSizeString;
+    }
+
+    public static String FormatFileSizeByMB(long fileS) {//转换文件大小
+
+
+        return String.format("%.2fM", (double) fileS / 1048576);
+    }
     /**
      * get file size
      * <ul>

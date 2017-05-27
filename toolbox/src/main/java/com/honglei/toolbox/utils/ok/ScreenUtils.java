@@ -8,26 +8,30 @@ import android.graphics.Rect;
 import android.util.DisplayMetrics;
 import android.view.View;
 import android.view.WindowManager;
-
-/**
+/*******
  * 屏幕 工具类
- ***************************************************************
- * 显示信息
- * 获得屏幕宽度
- * 获得屏幕高度
- * 获得状态栏的高度
- * 获取当前屏幕截图，包含状态栏
- * 获取当前屏幕截图，不包含状态栏
- * 精确获取屏幕尺寸（例如：3.5、4.0、5.0寸屏幕）(貌似不太准)
- * 一般是7寸以上是平板 ,判断是否是平板（官方用法）
- * 获取屏幕分辨率
- * 获取屏幕密度
- * dp2px
- * px2dp
- *
- *
- *
- */
+ * <ul>
+ * <li>{@link #printDisplayInfo(Context context)  ｝</li>显示信息
+ * <li>{@link #getScreenWidth(Context context)  ｝</li>获得屏幕宽度
+ * <li>{@link #getScreenHeight(Context context)  ｝</li>获得屏幕高度
+ * <li>{@link #getStatusHeight(Context context)  ｝</li>获得状态栏的高度
+ * <li>{@link #snapShotWithStatusBar(Activity activity)  ｝</li>当前屏幕截图，包含状态栏
+ * <li>{@link #snapShotWithoutStatusBar(Activity activity)  ｝</li>当前屏幕截图，不包含状态栏
+ * <li>{@link #getScreenPhysicalSize(Activity activity)  ｝</li>获取屏幕尺寸（例如：3.5、4.0、5.0寸屏幕）(貌似不太准)
+ * <li>{@link #isTablet(Context context)  ｝</li>一般是7寸以上是平板 ,判断是否是平板（官方用法）
+ * <li>{@link #getScreenRatio(Context context)  ｝</li>获取屏幕分辨率
+ * <li>{@link #getScreenDensity(Context context)  ｝</li>获取屏幕密度
+ * <li>{@link #dp2Px(Context context, float dp)  ｝</li>
+ * <li>{@link #px2Dp(Context context, float px)   ｝</li>
+ * <li>{@link #  ｝</li>
+ * <li>{@link #  ｝</li>
+ * <li>{@link #  ｝</li>
+ * <li>{@link #  ｝</li>
+ * <li>{@link #  ｝</li>
+ * <li>{@link #  ｝</li>
+ * <li>{@link #  ｝</li>
+ * </ul>
+ ****/
 public class ScreenUtils {
 
 
@@ -61,7 +65,6 @@ public class ScreenUtils {
 		DisplayMetrics outMetrics = new DisplayMetrics();
 		wm.getDefaultDisplay().getMetrics(outMetrics);
 		int width = outMetrics.widthPixels;
-		//LogUtils.i("当前屏幕宽度：" + width);
 		return width;
 	}
 
@@ -74,7 +77,6 @@ public class ScreenUtils {
 		DisplayMetrics outMetrics = new DisplayMetrics();
 		wm.getDefaultDisplay().getMetrics(outMetrics);
 		int height = outMetrics.heightPixels;
-		//LogUtils.i("当前屏幕高度：" + height);
 		return height;
 	}
 
@@ -82,7 +84,6 @@ public class ScreenUtils {
 	 * 获得状态栏的高度
 	 */
 	public static int getStatusHeight(Context context) {
-
 		int statusHeight = -1;
 		try {
 			Class<?> clazz = Class.forName("com.android.internal.R$dimen");
@@ -93,7 +94,6 @@ public class ScreenUtils {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		//LogUtils.i("当前状态栏高度：" + statusHeight);
 		return statusHeight;
 	}
 
@@ -125,7 +125,6 @@ public class ScreenUtils {
 		Rect frame = new Rect();
 		activity.getWindow().getDecorView().getWindowVisibleDisplayFrame(frame);
 		int statusBarHeight = frame.top;
-
 		int width = getScreenWidth(activity);
 		int height = getScreenHeight(activity);
 		Bitmap bp = null;
@@ -180,26 +179,20 @@ public class ScreenUtils {
         return displayMetrics.densityDpi + "DPI";
     }
 
-	public static float dpToPx(Context context, float dp) {
+	public static float dp2Px(Context context, float dp) {
 		if (context == null) {
 			return -1;
 		}
 		return dp * context.getResources().getDisplayMetrics().density;
 	}
 
-	public static float pxToDp(Context context, float px) {
+	public static float px2Dp(Context context, float px) {
 		if (context == null) {
 			return -1;
 		}
 		return px / context.getResources().getDisplayMetrics().density;
 	}
 
-	public static int dpToPxInt(Context context, float dp) {
-		return (int)(dpToPx(context, dp) + 0.5f);
-	}
 
-	public static int pxToDpCeilInt(Context context, float px) {
-		return (int)(pxToDp(context, px) + 0.5f);
-	}
 
 }

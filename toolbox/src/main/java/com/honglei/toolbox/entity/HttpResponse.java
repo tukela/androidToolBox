@@ -5,7 +5,6 @@ import com.honglei.toolbox.constant.HttpConstants;
 import com.honglei.toolbox.service.HttpCache;
 import com.honglei.toolbox.utils.HttpUtils;
 import com.honglei.toolbox.utils.StringUtils;
-import com.honglei.toolbox.utils.TimeUtils;
 
 import java.util.HashMap;
 import java.util.Map;

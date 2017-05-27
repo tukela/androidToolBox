@@ -1,4 +1,4 @@
-package com.honglei.toolbox.utils.test;
+package com.honglei.toolbox.utils.ok;
 
 import android.content.Context;
 import android.net.wifi.WifiInfo;
@@ -17,15 +17,37 @@ import java.io.Reader;
 import java.io.Writer;
 import java.util.UUID;
 
-/**
- * Created by developer on 2017/4/27.
- */
-
-public class Device {
-
+/*******
+ * <ul>
+ * <li>{@link #getDeviceId(Context context) ｝</li>
+ * <li>{@link #getIMIEStatus(Context context) ｝</li>
+ * <li>{@link #getLocalMac(Context context)  ｝</li>
+ * <li>{@link #getAndroidId(Context context) ｝</li>
+ * <li>{@link #saveDeviceID(File file) ｝</li>
+ * <li>{@link #readDeviceID(File file) ｝</li>
+ * <li>{@link #getPhoneBrand()  ｝</li>
+ * <li>{@link #getPhoneModel  ｝</li>
+ * <li>{@link #getBuildLevel()  ｝</li>
+ * <li>{@link #getBuildVersion()  ｝</li>
+ * <li>{@link #getAppProcessId()  ｝</li>
+ * <li>{@link #  ｝</li>
+ * <li>{@link #  ｝</li>
+ * <li>{@link #  ｝</li>
+ * <li>{@link #  ｝</li>
+ * <li>{@link #  ｝</li>
+ * <li>{@link #  ｝</li>
+ * <li>{@link #  ｝</li>
+ * <li>{@link #  ｝</li>
+ * </ul>
+ ****/
+public class DeviceUtil {
+    /***
+     * 获取设备的唯一标识，deviceId
+     * */
     public static String getDeviceId(Context context) {
         String deviceId = "";
-
+        TelephonyManager tm = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
+        deviceId = tm.getDeviceId();
         if (deviceId == null || "".equals(deviceId)) {
             try {
                 deviceId = getLocalMac(context).replace(":", "");
@@ -51,6 +73,8 @@ public class Device {
         return deviceId;
     }
 
+
+
     // IMEI码
     private static String getIMIEStatus(Context context) {
         TelephonyManager tm = (TelephonyManager) context
@@ -75,14 +99,14 @@ public class Device {
     }
 
     public static void saveDeviceID(File file) {
-//        try {
-//            FileOutputStream fos = new FileOutputStream(file);
-//            Writer out = new OutputStreamWriter(fos, "UTF-8");
-//            out.write(str);
-//            out.close();
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
+        try {
+            FileOutputStream fos = new FileOutputStream(file);
+            Writer out = new OutputStreamWriter(fos, "UTF-8");
+         //   out.write(str);
+            out.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     public static String readDeviceID(File file) {
@@ -101,5 +125,49 @@ public class Device {
             e.printStackTrace();
             return null;
         }
+    }
+    /**
+     * 获取手机品牌
+     *
+     * @return
+     */
+    public static String getPhoneBrand() {
+        return android.os.Build.BRAND;
+    }
+
+    /**
+     * 获取手机型号
+     *
+     * @return
+     */
+    public static String getPhoneModel() {
+        return android.os.Build.MODEL;
+    }
+
+    /**
+     * 获取手机Android API等级（22、23 ...）
+     *
+     * @return
+     */
+    public static int getBuildLevel() {
+        return android.os.Build.VERSION.SDK_INT;
+    }
+
+    /**
+     * 获取手机Android 版本（4.4、5.0、5.1 ...）
+     *
+     * @return
+     */
+    public static String getBuildVersion() {
+        return android.os.Build.VERSION.RELEASE;
+    }
+
+    /**
+     * 获取当前App进程的id
+     *
+     * @return
+     */
+    public static int getAppProcessId() {
+        return android.os.Process.myPid();
     }
 }

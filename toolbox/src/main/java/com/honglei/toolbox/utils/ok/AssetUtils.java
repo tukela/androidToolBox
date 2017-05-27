@@ -11,12 +11,15 @@ import android.content.res.AssetManager;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 
-/**
+/*******
  * Asset 工具类
- *
- * 从Asset 获取文本、图片、InputStream
- *
- */
+ * <ul>
+ * <li>{@link #getStringFromAssets(String fileName,Context context)  ｝</li>读取文件从 asset
+ * <li>{@link #getUriFromRes(int id,Context context)  ｝</li>获取Uri
+ * <li>{@link #openAssetFile(Context context, String fileName)  ｝</li>打开Asset下的文件
+ * <li>{@link #getImageFromAsserts(Context ctx,String fileName) ｝</li>从assets 文件夹中读取图片
+ * </ul>
+ ****/
 @SuppressWarnings("deprecation")
 public class AssetUtils {
     /*****
@@ -74,25 +77,20 @@ public class AssetUtils {
     /**
      * 从assets 文件夹中读取图片
      */
-    public static Drawable getImageFromAsserts(Context ctx,
-                                                String fileName) {
+    public static Drawable getImageFromAsserts(Context ctx,String fileName) {
         try {
             InputStream is = ctx.getResources().getAssets().open(fileName);
             return Drawable.createFromStream(is, null);
         } catch (IOException e) {
-            if (e != null) {
                 e.printStackTrace();
-            }
         } catch (OutOfMemoryError e) {
-            if (e != null) {
                 e.printStackTrace();
-            }
         } catch (Exception e) {
-            if (e != null) {
                 e.printStackTrace();
-            }
         }
         return null;
     }
+
+
 
 }

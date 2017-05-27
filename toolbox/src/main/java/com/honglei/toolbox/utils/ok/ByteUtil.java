@@ -2,16 +2,15 @@ package com.honglei.toolbox.utils.ok;
 
 import java.io.*;
 
-/******
+
+/*******
  * 字节工具类
- * byte[] 转为 对象
- * 对象 转为 byte[]
- * byte 转为bit
- *
- *
- *
- *
- */
+ * <ul>
+ * <li>{@link #byte2Object(byte[] bytes)  ｝</li>byte[] 转为 对象
+ * <li>{@link #object2Byte(Object obj)  ｝</li>对象 转为 byte[]
+ * <li>{@link #byte2Bit(byte[] bytes)  ｝</li>byte 转为bit
+ * </ul>
+ ****/
 public class ByteUtil {
     /**
      * byte[] 转为 对象
@@ -19,7 +18,7 @@ public class ByteUtil {
      * @param bytes
      * @return
      */
-    public static Object byteToObject(byte[] bytes) {
+    public static Object byte2Object(byte[] bytes) {
         ObjectInputStream ois = null;
         try {
             ois = null;
@@ -45,7 +44,7 @@ public class ByteUtil {
      * @param obj
      * @return
      */
-    public static byte[] objectToByte(Object obj) {
+    public static byte[] object2Byte(Object obj) {
         ObjectOutputStream oos = null;
         try {
             ByteArrayOutputStream bos = new ByteArrayOutputStream();
@@ -63,7 +62,7 @@ public class ByteUtil {
         }return null;
     }
 
-    public static String byteToBit(byte[] bytes) {
+    public static String byte2Bit(byte[] bytes) {
         StringBuilder sb = new StringBuilder();
         for (int i = 0; i < Byte.SIZE * bytes.length; i++)
             sb.append((bytes[i / Byte.SIZE] << i % Byte.SIZE & 0x80) == 0 ? '0' : '1');
