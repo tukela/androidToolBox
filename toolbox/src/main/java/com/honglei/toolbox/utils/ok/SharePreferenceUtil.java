@@ -2,11 +2,9 @@ package com.honglei.toolbox.utils.ok;
 
 import java.util.Map;
 import java.util.Set;
-
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
-
 import com.google.gson.Gson;
 
 /**
@@ -16,9 +14,10 @@ import com.google.gson.Gson;
 public class SharePreferenceUtil {
 
 	private static SharedPreferences sp;
-
-	/** 保存在手机里面的文件名 */
 	private final static String SharePreferncesName = "SP_SETTING";
+
+
+
 
 
 	/**
